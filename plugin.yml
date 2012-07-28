@@ -1,0 +1,16 @@
+name: CapsControl
+
+version: 0.1
+
+description: It Turns all Caps into Lower Case
+
+author: McLuke300
+
+main: me.mcluke300.capscontrol.CapsControl
+
+
+
+commands:
+   CapsControl:
+      description: Reloads ReservedSlots Config
+      permission: capscontrol.reload
