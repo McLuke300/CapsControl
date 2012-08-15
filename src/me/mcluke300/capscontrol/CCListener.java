@@ -3,20 +3,18 @@ package me.mcluke300.capscontrol;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CCListener implements Listener {
-	CapsControl plugin;
-
 
 
 	@EventHandler
-	public void onPlayerEvent(PlayerChatEvent e) {
+	public void onPlayerEvent(AsyncPlayerChatEvent e) {
 		Player player = e.getPlayer();
 
 		if (!player.hasPermission("capscontrol.bypass")) {
-			int min = plugin.getConfig().getInt("CapChecker.MinimumCharacterCount"); 
+			int min = CapsControl.plugin.getConfig().getInt("CapChecker.MinimumCharacterCount"); 
 			String msg = e.getMessage();
 
 			if (msg.length() >= min) {
@@ -37,10 +35,10 @@ public class CCListener implements Listener {
 				}
 				if (down + up != 0) {
 					double Percent = 1. * up / (up+down) * 100.0D;
-					int configpercent = plugin.getConfig().getInt("CapChecker.Percent");
+					int configpercent = CapsControl.plugin.getConfig().getInt("CapChecker.Percent");
 					if (Percent > configpercent) {
 						e.setMessage(e.getMessage().toLowerCase());
-						String result = plugin.getConfig().getString("CapsControl.Message");
+						String result = CapsControl.plugin.getConfig().getString("CapsControl.Message");
 						result = result.replaceAll("&([0-9a-fA-F])", "§$1");
 						player.sendMessage(result);
 					}
@@ -55,9 +53,9 @@ public class CCListener implements Listener {
 	public void onPlayerEvent(PlayerCommandPreprocessEvent e) {
 		Player player = e.getPlayer();
 
-		if (plugin.getConfig().getBoolean("CapChecker.CheckCommands") == true) {
+		if (CapsControl.plugin.getConfig().getBoolean("CapChecker.CheckCommands") == true) {
 			if (!player.hasPermission("capscontrol.bypass")) {
-				int min = plugin.getConfig().getInt("CapChecker.MinimumCharacterCount"); 
+				int min = CapsControl.plugin.getConfig().getInt("CapChecker.MinimumCharacterCount"); 
 				String msg = e.getMessage();
 
 				if (msg.length() >= min) {
@@ -78,10 +76,10 @@ public class CCListener implements Listener {
 					}
 					if (down + up != 0) {
 						double Percent = 1. * up / (up+down) * 100.0D;
-						int configpercent = plugin.getConfig().getInt("CapChecker.Percent");
+						int configpercent = CapsControl.plugin.getConfig().getInt("CapChecker.Percent");
 						if (Percent > configpercent) {
 							e.setMessage(e.getMessage().toLowerCase());
-							String result = plugin.getConfig().getString("CapsControl.Message");
+							String result = CapsControl.plugin.getConfig().getString("CapsControl.Message");
 							result = result.replaceAll("&([0-9a-fA-F])", "§$1");
 							player.sendMessage(result);
 						}

@@ -1,5 +1,7 @@
 package me.mcluke300.capscontrol;
 
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -8,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CapsControl extends JavaPlugin{
+	
+	public static CapsControl plugin;
 
 
 	@Override
@@ -15,6 +19,14 @@ public class CapsControl extends JavaPlugin{
 		LoadConfiguration();
 		System.out.println(this+" has been Enabled");
 		Bukkit.getServer().getPluginManager().registerEvents(new CCListener(), this);
+		plugin = this;
+		//Metrics
+		try {
+			MetricsLite metrics = new MetricsLite(this);
+			metrics.start();
+		} catch (IOException e) {
+			// Failed to submit the stats :-(
+		}
 	}
 
 
